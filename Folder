@@ -1,0 +1,20 @@
+Cindy-portfolio/
+│
+├── README.md
+├── cellular-aging-quiescence/
+│   ├── data/
+│   ├── notebooks/
+│   ├── figures/
+│   ├── requirements.txt
+│   └── README.md
+│
+├── species-identifier/
+│   ├── app/
+│   ├── images/
+│   ├── custom-vision/
+│   └── README.md
+│
+├── data-viz-bio/
+│   ├── notebooks/
+│   ├── plots/
+│   └── README.md
