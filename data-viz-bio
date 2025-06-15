@@ -1,1 +1,32 @@
-data-viz-bio/README.md
+# 📊 Data Visualization in Bioinformatics
+
+A visual portfolio of biological data analysis projects using Python and R.
+
+---
+
+## 📈 Projects
+
+- Protein expression visualization
+- Cell cycle clustering
+- Gene function annotation graphs
+
+---
+
+## 🛠 Tools
+
+- Python: `pandas`, `matplotlib`, `seaborn`
+- R: `tidyverse`, `ggplot2`, `pheatmap`
+
+---
+
+## 📁 Structure
+
+- `notebooks/`: Jupyter and R Markdown files
+- `plots/`: Output PNGs and SVGs
+
+---
+
+## 👩‍💻 Maintainer
+
+Cindy Zhang  
+📧 qch2050cn@gmail.com
