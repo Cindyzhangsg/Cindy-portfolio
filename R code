@@ -1,1 +1,90 @@
+setwd("~/Desktop/Assignment 1")
+
+# ------------------------------------------------------------------
+# 1) A helper function to list all partitions of the set {1,...,n}.
+# We use a simple recursive approach. For larger n, you might
+# look into more optimized routines or a packages such as 'partitions'.
+# ------------------------------------------------------------------
+all_partitions <- function(n) {
+if (n == 1) {
+# There is only one partition when n=1: a single cluster {1}
+return(list(list(c(1))))
+} else {
+# Get all partitions of 1..(n-1) recursively
+previous_partitions <- all_partitions(n - 1)
+new_partitions <- list()
+
+# For each existing partition, we can:
+# (a) add 'n' as a singleton cluster
+# (b) or add 'n' into each existing cluster of the partition
+for (part in previous_partitions) {
+# (a) Add 'n' as a new singleton cluster
+new_partitions[[length(new_partitions) + 1]] <- c(part, list(c(n)))
+
+# (b) Insert 'n' into each existing cluster in turn
+for (k in seq_along(part)) {
+# Make a deep copy
+modified_part <- lapply(part, function(x) x)
+# Add 'n' to cluster k
+modified_part[[k]] <- c(modified_part[[k]], n)
+new_partitions[[length(new_partitions) + 1]] <- modified_part
+}
+}
+return(new_partitions)
+}
+}
+
+# ------------------------------------------------------------------
+# 2) A function to compute the Dirichlet-process (CRP) prior probability
+# of a given partition. The partition is assumed to be a list of
+# numeric vectors, each vector giving the items in that cluster.
+# ------------------------------------------------------------------
+dp_partition_prob <- function(partition, alpha) {
+# Number of items in total
+n <- sum(sapply(partition, length))
+# Number of clusters
+k <- length(partition)
+# Cluster sizes
+cluster_sizes <- sapply(partition, length)
+
+# Numerator: alpha^k * product_{j=1}^k (n_j - 1)!
+# We'll use factorial() for (n_j - 1)! and alpha^k:
+num <- (alpha^k) * prod(factorial(cluster_sizes - 1))
+
+# Denominator: product_{m=0}^{n-1} (alpha + m)
+# or equivalently gamma(n+alpha)/gamma(alpha), but we'll do direct product:
+denom <- 1
+for (m in 0:(n-1)) {
+denom <- denom * (alpha + m)
+}
+
+return(num / denom)
+}
+
+# ------------------------------------------------------------------
+# 3) The main function that:
+# - enumerates all partitions
+# - computes dp probability for each
+# - returns the maximum probability found
+# ------------------------------------------------------------------
+dp_most_likely_clustering <- function(n, alpha) {
+parts <- all_partitions(n)
+
+# Compute probabilities for each partition
+probs <- sapply(parts, dp_partition_prob, alpha = alpha)
+
+# Return the maximum probability
+max_prob <- max(probs)
+return(max_prob)
+}
+
+# ------------------------------------------------------------------
+# EXAMPLE USE
+# ------------------------------------------------------------------
+# Try with a small n (e.g. 3) and a few alpha values:
+for (alpha_val in c(0.1, 1.0, 1.5, 50.0)) {
+cat("\nFor alpha =", alpha_val,
+"and n=3, the maximum partition probability is",
+dp_most_likely_clustering(3, alpha_val), "\n")
+}
 
