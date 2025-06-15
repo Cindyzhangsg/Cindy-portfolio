@@ -1,1 +1,36 @@
-species-identifier/README.md
+# 🐍 Species Identifier App
+
+A tool built for the CSSxTech Hackathon at UCL to classify species using images and Microsoft Custom Vision.
+
+🏆 **2nd place out of 26 teams**  
+📸 Featured in UCL CS Department news
+
+---
+
+## 💡 Overview
+
+- Used Microsoft Custom Vision to train species classifier
+- Frontend built in PowerApps and R
+- Integrated REST API to return classification from image uploads
+
+---
+
+## 🧰 Stack
+
+- R + Shiny
+- PowerApp for UI
+- Microsoft Custom Vision API
+
+---
+
+## 📁 Structure
+
+- `app/`: Frontend logic
+- `images/`: Screenshots or demo photos
+- `custom-vision/`: Notes on model training and accuracy
+
+---
+
+## 🙋‍♀️ Contributions
+
+I led front-end development, API integration, and final pitch presentation.
